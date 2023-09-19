@@ -16,6 +16,9 @@ def consolidate_tags(input_text):
         consolidated_tags.append(content)
         prev_tag = tag
 
+    if prev_tag is not None:
+        consolidated_tags.append(f"</v>")
+        
     consolidated_text = "".join(consolidated_tags)
 
     return consolidated_text

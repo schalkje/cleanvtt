@@ -1,6 +1,8 @@
 import re
 
-def clean_file(input_file_path, output_file_path):
+emptyNewLine = '\r\n'
+
+def clean_vtt_file(input_file_path, output_file_path):
     try:
         # Read the input file
         with open(input_file_path, 'r') as input_file:
@@ -21,8 +23,6 @@ def clean_file(input_file_path, output_file_path):
         print("Input file not found.")
     except Exception as e:
         print("An error occurred while cleaning the file:", str(e))
-
-emptyNewLine = '\r\n';
 
 def clean_contents(contents):
     cleaned_contents = contents.replace('dirty', 'clean')
@@ -58,13 +58,9 @@ def consolidate_tags(input_text):
         consolidated_tags.append(content)
         prev_tag = tag
 
+    if prev_tag is not None:
+        consolidated_tags.append(f"</v>")
+
     consolidated_text = "".join(consolidated_tags)
 
     return consolidated_text
-
-# Usage example
-filename = 'green egg backloading'
-input_file_path = 'examples/'+filename+'.vtt'  # Replace with the path to your input file
-output_file_path = 'examples/'+filename+'.vtt.cleaned'  # Replace with the desired path for the cleaned output file
-
-clean_file(input_file_path, output_file_path)
